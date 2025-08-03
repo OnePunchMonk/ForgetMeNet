@@ -163,5 +163,3 @@ This project offers a realistic and scalable solution to user data unlearning. T
 - **Apache Kafka**: Integrate Kafka for real-time streaming and decoupled communication between the frontend and backend services. This would allow the system to scale better and handle large volumes of concurrent user interactions.
 
 - **Apache Airflow**: Use Airflow for orchestration of unlearning workflows. This would make it easier to schedule retraining jobs, monitor execution, and retry on failure, increasing robustness.
-
-- **Command Line Interface (CLI)**: Build a CLI tool for power users and developers to trigger unlearning, view logs, and manage certificates programmatically, outside of the web UI.
