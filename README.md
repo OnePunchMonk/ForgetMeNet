@@ -1,86 +1,167 @@
-# Unlearning Certification System
 
-## Overview
-This project implements a **Unlearning Certification System** that utilizes **BERT-based sentiment analysis** to certify the unlearning of data. The system integrates with **IPFS** for data storage and provides a **REST API** interface for triggering unlearning and logging certification. The project ensures that data can be unlearned and certified through a decentralized approach using IPFS, enhancing data privacy and integrity.
+# 🛡️ Financial Data Unlearning & Certification System
 
-## Purpose
-The purpose of this system is to provide a framework for certifying the unlearning of data, particularly useful in scenarios where data privacy is critical. The system uses a **sentiment analysis model** (based on BERT) to evaluate whether the data being "unlearned" has been processed correctly and if the certification can be logged and stored securely.
+A modern, efficient, and verifiable system to "forget" user data from machine learning models, with immutable proof logged to the InterPlanetary File System (IPFS).
 
-## Features
-- **BERT-based Sentiment Classification**: Uses BERT for sentiment classification to ensure the model processes textual data appropriately.
-- **Unlearning Triggering**: Allows for the triggering of unlearning operations through the REST API.
-- **IPFS Integration**: Data is uploaded to IPFS for decentralized storage, ensuring that data cannot be tampered with.
-- **Logging Certification**: The system logs certification of unlearning in a secure, immutable manner.
+---
+
+## 📜 The Problem: The Right to be Forgotten
+
+In the age of data privacy regulations like GDPR and CCPA, individuals have the "right to be forgotten." This means companies must be able to delete a user's data from their systems upon request. For standard databases, this is a simple DELETE command.
+
+But what about machine learning models?
+
+A model trained on user data retains information about that data in its parameters (weights and biases). Simply deleting the original data point from the training set isn't enough; the model's "memory" of that data persists. The only traditional solution is to retrain the entire model from scratch on the modified dataset, a process that is:
+
+- **Extremely Expensive**: Retraining large models can cost thousands of dollars in compute time.
+- **Slow**: It can take days or even weeks, making it impractical for handling frequent user requests.
+- **Unverifiable**: How can a user be sure their data has truly been "unlearned"?
+
+This project tackles these challenges head-on.
+
+---
+
+## ✨ Our Solution: Efficient, Verifiable Unlearning
+
+This system provides a practical framework for machine unlearning by combining three key technologies:
+
+- **SISA (Sharded, Isolated, Sliced, and Aggregated) Training**: Instead of one massive, monolithic model, we train multiple small, independent models (shards). When a request to unlearn a data point arrives, we only need to discard and retrain the single, tiny shard that contained that data.
+- **Sentiment-Driven Unlearning Trigger**: The system automatically analyzes the sentiment of feedback text. If the sentiment is Negative or Neutral, it's flagged for unlearning.
+- **IPFS for Certification**: After a shard is retrained, the system generates a Certificate of Unlearning and uploads it to IPFS for decentralized, immutable, and publicly verifiable storage.
+
+---
+
+## 🧠 How SISA Works: The Encyclopedia Analogy
+
+SISA works like a set of encyclopedias:
+
+- **Sharding/Slicing**: Dataset is split into many small "shards."
+- **Isolation**: A separate, small ML model is trained on each data shard.
+- **Unlearning**: Identify the shard, discard and retrain just that shard's model.
+
+```mermaid
+graph TD
+    subgraph Traditional Model
+        A[Monolithic Model]
+    end
+
+    subgraph SISA Model
+        B1[Shard 1 Model]
+        B2[Shard 2 Model]
+        B3[Shard 3 Model]
+        B4[Shard ...n Model]
+    end
+
+    C(Data Point to Unlearn) --> B3
+    B3 -- Discard & Retrain --> B3_New(Shard 3 New Model)
+
+    style A fill:#ff9999,stroke:#333,stroke-width:2px
+    style C fill:#ffcc99,stroke:#333,stroke-width:2px
+    style B3 fill:#ff9999,stroke:#333,stroke-width:2px
+    style B3_New fill:#99ff99,stroke:#333,stroke-width:2px
+```
+
+---
+
+## 💻 Technology Stack
+
+| Component   | Technology                                                 | Purpose                                                |
+|------------|------------------------------------------------------------|--------------------------------------------------------|
+| Frontend   | Streamlit                                                  | Interactive web UI for file upload and real-time logs |
+| Backend    | FastAPI                                                    | High-performance asynchronous API                      |
+| Sentiment AI | Hugging Face Transformers (`distilbert-base-uncased-finetuned-sst-2-english`) | Sentiment analysis                                    |
+| Unlearning | Scikit-learn                                               | SISA training and retraining logic                     |
+| Certification | IPFS (via IPFS Desktop)                                 | Decentralized storage for unlearning certificates      |
+
+---
+
+## ⚙️ System Architecture
+
+```mermaid
+graph TD
+    A[User] -- Uploads CSV --> B(Frontend: Streamlit);
+    B -- Sends Row by Row --> C{Backend: FastAPI};
+    C -- 1. Analyzes Sentiment --> D[Hugging Face Model];
+    C -- 2. Triggers Unlearning --> E[SISA Model];
+    E -- Retrains Shard --> E;
+    C -- 3. Creates Certificate --> F(IPFS Desktop);
+    F -- Returns CID --> C;
+    C -- Sends Result --> B;
+    B -- Updates UI --> A;
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#ffc,stroke:#333,stroke-width:2px
+    style C fill:#cff,stroke:#333,stroke-width:2px
+```
+
+---
+
+## 🚀 Setup and Usage
+
+### Prerequisites
+
+- Python 3.8+
+- IPFS Desktop installed and running
+- A virtual environment (recommended)
+
+### 1. Clone the Repository
+
+```bash
+git clone <your-repo-url>
+cd <your-repo-name>
+```
+
+### 2. Create and Activate Virtual Environment
+
+```bash
+python -m venv venv
+# Windows PowerShell
+.env\Scripts\Activate.ps1
+# macOS/Linux
+# source venv/bin/activate
+```
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run the Backend
+
+```bash
+cd backend
+uvicorn api:app --reload
+```
+
+### 5. Run the Frontend
+
+```bash
+cd frontend
+streamlit run app.py
+```
+![Streamlit Dashboard](./screenshots/dashboard.png)
+
+---
+
+## 🔮 Future Improvements
+
+- **Enhanced Security**: Encrypt data before sending to IPFS.
+- **Scalability**: Parallelize SISA retraining logic.
+- **Advanced UI**: View certification logs directly from IPFS.
+- **Model Support**: Extend to more complex deep learning models.
+
+---
+
+## ✅ Conclusion
+
+This project offers a realistic and scalable solution to user data unlearning. Through SISA and IPFS, it ensures that forgetting data is efficient, verifiable, and privacy-respecting.
 
 
-### IPFS Daemon
-Make sure the IPFS daemon is installed and running locally:
+### 🧩 Additional Future Extensions
 
-1. **Install IPFS**: Follow the instructions on [IPFS installation guide](https://ipfs.io/docs/install/) to install and set up IPFS on your machine.
-2. **Start the IPFS daemon**:
-ipfs daemon
+- **Apache Kafka**: Integrate Kafka for real-time streaming and decoupled communication between the frontend and backend services. This would allow the system to scale better and handle large volumes of concurrent user interactions.
 
-### API Server
-Run the FastAPI server using **Uvicorn**:
-uvicorn app.api:app --reload
+- **Apache Airflow**: Use Airflow for orchestration of unlearning workflows. This would make it easier to schedule retraining jobs, monitor execution, and retry on failure, increasing robustness.
 
-
-This will start the server at `http://127.0.0.1:8000`. You can then make API requests to trigger unlearning and certification processes.
-
-## How to Run
-
-### 1. **Run the API Server**
-
-To start the FastAPI server and begin using the unlearning certification system:
-
-uvicorn app.api:app --reload
-
-This will start the server on `http://localhost:8000`.
-
-### 2. **Interact with the API**
-
-You can interact with the API through **REST endpoints**. The following endpoints are available:
-
-- **POST /certify-unlearning**
-  - Trigger the unlearning certification process.
-  - Example:
-    ```bash
-    curl -X 'POST' 'http://127.0.0.1:8000/certify-unlearning' -H 'Content-Type: application/json' -d '{"text": "Your data here"}'
-    ```
-
-- **GET /status**
-  - Get the current status of the IPFS node.
-  - Example:
-    ```bash
-    curl http://127.0.0.1:8000/status
-    ```
-
-### 3. **Testing the System**
-
-You can also use the system to test unlearning and certification functionalities with a sample dataset. Here's how to trigger the unlearning process for a sample entry:
-
-curl -X 'POST' 'http://127.0.0.1:8000/certify-unlearning' -H 'Content-Type: application/json' -d '{"text": "This is a test sentence for unlearning certification."}'
-
-
-## Approach
-
-### 1. **Sentiment Analysis with BERT**:
-   - The system uses a **pre-trained BERT model** to classify the sentiment of the data being processed. This ensures that the system only certifies unlearning for valid entries.
-
-### 2. **IPFS Integration**:
-   - After certification, data is stored in **IPFS** (InterPlanetary File System) for decentralization and immutability. This ensures that once the data is "unlearned" and certified, it is securely stored and cannot be altered.
-   
-### 3. **Logging and Tracking**:
-   - The certification logs are stored to track the unlearning process. This ensures accountability and can be used for auditing purposes.
-
-### 4. **Unlearning Process**:
-   - The unlearning process is initiated via a REST API, triggering a sequence that involves data validation, sentiment classification, IPFS upload, and logging of the certification.
-
-## Future Improvements
-- **Scalability**: Optimizing the system for handling larger datasets and enabling parallel processing.
-- **Enhanced Security**: Incorporating encryption for added data privacy during the unlearning and certification processes.
-- **Extended API Capabilities**: Adding more endpoints for advanced data queries and status updates.
-
-## Conclusion
-This Unlearning Certification System provides a robust solution for certifying the unlearning of data using sentiment analysis, IPFS, and secure logging. It offers a decentralized and immutable approach to managing sensitive data in line with modern data privacy standards.
-
+- **Command Line Interface (CLI)**: Build a CLI tool for power users and developers to trigger unlearning, view logs, and manage certificates programmatically, outside of the web UI.

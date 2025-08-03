@@ -1,7 +1,22 @@
+# fastapi
+# tf-keras
+# uvicorn[standard]
+# streamlit
+# pandas
+# requests
+# scikit-learn
+# torch
+# transformers
+# # ipfshttpclient
+# ipfs-kubo-client
+# python-multipart
 fastapi
-uvicorn
-transformers
-datasets
+uvicorn[standard]
+streamlit
 pandas
+requests
+scikit-learn
 torch
-ipfshttpclient
+transformers
+python-multipart
+tf-keras
