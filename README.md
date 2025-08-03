@@ -79,15 +79,15 @@ graph TD
 
 ```mermaid
 graph TD
-    A[User] -- Uploads CSV --> B(Frontend: Streamlit);
-    B -- Sends Row by Row --> C{Backend: FastAPI};
-    C -- 1. Analyzes Sentiment --> D[Hugging Face Model];
-    C -- 2. Triggers Unlearning --> E[SISA Model];
-    E -- Retrains Shard --> E;
-    C -- 3. Creates Certificate --> F(IPFS Desktop);
-    F -- Returns CID --> C;
-    C -- Sends Result --> B;
-    B -- Updates UI --> A;
+    A[User] -->|Uploads CSV| B(Frontend: Streamlit)
+    B -->|Sends Row by Row| C{Backend: FastAPI}
+    C -->|1. Analyzes Sentiment| D[Hugging Face Model]
+    C -->|2. Triggers Unlearning| E[SISA Model]
+    E -->|Retrains Shard| E
+    C -->|3. Creates Certificate| F[IPFS Desktop]
+    F -->|Returns CID| C
+    C -->|Sends Result| B
+    B -->|Updates UI| A
 
     style A fill:#f9f,stroke:#333,stroke-width:2px
     style B fill:#ffc,stroke:#333,stroke-width:2px
