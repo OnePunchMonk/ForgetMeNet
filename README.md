@@ -107,8 +107,8 @@ graph TD
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/OnePunchMonk/IPFS-for-Unlearning
-cd IPFS-for-Unlearning
+git clone https://github.com/OnePunchMonk/ForgetMeNet
+cd ForgetMeNet
 ```
 
 ### 2. Create and Activate Virtual Environment
