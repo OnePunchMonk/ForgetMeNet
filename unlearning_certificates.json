@@ -1,0 +1,23 @@
+[
+  {
+    "certification_timestamp": "2025-08-04T13:25:25.874896",
+    "certified_unlearned_id": "ACC-59265",
+    "unlearning_duration_seconds": 130.2378,
+    "model_state": "Retrained Transformer shard 0.",
+    "ipfs_cid": "Qmar7KwuaEGtztHokK5YxRZKqRcUHQm7Vd57U9bTPFXwwo"
+  },
+  {
+    "certification_timestamp": "2025-08-04T13:27:29.779876",
+    "certified_unlearned_id": "ACC-93201",
+    "unlearning_duration_seconds": 123.765,
+    "model_state": "Retrained Transformer shard 0.",
+    "ipfs_cid": "QmXVSFGUaud9PrZFjMUB6JSz2A7ERvCNyEirFgyg86cZed"
+  },
+  {
+    "certification_timestamp": "2025-08-04T13:29:19.446956",
+    "certified_unlearned_id": "ACC-21984",
+    "unlearning_duration_seconds": 109.5305,
+    "model_state": "Retrained Transformer shard 2.",
+    "ipfs_cid": "QmQUwtUXT2sWJE6Phnv9Bm8cBCC3mBKn5UZ9DeA67RtF38"
+  }
+]
