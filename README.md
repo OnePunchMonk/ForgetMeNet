@@ -173,7 +173,8 @@ python cli.py process \
   --full-record-json '{"account_number": "CLI-001", "account_name": "CLITest"}'
 ```
 
-This sends the record to the unlearning system, and upon successful processing, a certificate is generated and logged to IPFS.
+This sends the record to the unlearning system, and upon successful processing, a certificate is generated and logged to IPFS
+
 ---
 
 ## 🔮 Future Improvements
