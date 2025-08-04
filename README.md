@@ -1,5 +1,5 @@
 
-# 🛡️ Financial Data Unlearning & Certification System
+# 🛡️ ForgetMeNet
 
 A modern, efficient, and verifiable system to "forget" user data from machine learning models, with immutable proof logged to the InterPlanetary File System (IPFS).
 
@@ -142,6 +142,38 @@ streamlit run app.py
 ```
 ![Streamlit Dashboard](./screenshots/dashboard.png)
 
+---
+## 🧰 Command-Line Interface (CLI)
+
+The project includes a simple yet powerful CLI tool to interact with the backend API directly from your terminal.
+
+### 🔧 Usage
+
+Make sure the FastAPI server is running locally (`http://127.0.0.1:8000`) before using the CLI.
+
+Run the CLI commands using:
+
+```bash
+python cli.py [COMMAND] [OPTIONS]
+```
+
+### 📋 Available Commands
+
+| Command         | Description                                               |
+|-----------------|-----------------------------------------------------------|
+| `status`        | Checks if the API and its services are up and responsive. |
+| `process`       | Sends a record for unlearning and triggers certification. |
+
+### 🧪 Example
+
+```bash
+python cli.py process \
+  --record-id "CLI-001" \
+  --text "This service is slow and unresponsive." \
+  --full-record-json '{"account_number": "CLI-001", "account_name": "CLITest"}'
+```
+
+This sends the record to the unlearning system, and upon successful processing, a certificate is generated and logged to IPFS.
 ---
 
 ## 🔮 Future Improvements
