@@ -1,5 +1,6 @@
-
 # 🛡️ ForgetMeNet
+
+[![Project Status: Stable](https://img.shields.io/badge/status-stable-green.svg)](https://github.com/OnePunchMonk/ForgetMeNet)
 
 A modern, efficient, and verifiable system to "forget" user data from machine learning models, with immutable proof logged to the InterPlanetary File System (IPFS).
 
